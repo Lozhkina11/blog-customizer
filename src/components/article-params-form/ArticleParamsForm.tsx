@@ -127,7 +127,6 @@ export const ArticleParamsForm = ({
 							type='submit'
 							onClick={() => {
 								setStatusPage(edition);
-								setIsOpen(false);
 							}}
 						/>
 					</div>
