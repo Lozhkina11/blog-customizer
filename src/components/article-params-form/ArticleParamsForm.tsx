@@ -1,7 +1,7 @@
 import { ArrowButton } from 'components/arrow-button';
 import { Button } from 'components/button';
 import styles from './ArticleParamsForm.module.scss';
-import { FormEvent, useRef, useState } from 'react';
+import { FormEvent, MouseEvent, useRef, useState } from 'react';
 import { Text } from 'components/text';
 import { Separator } from 'components/separator';
 import { Select } from 'components/select';
@@ -30,13 +30,8 @@ export const ArticleParamsForm = ({
 	const [edition, setEdition] = useState<ArticleStateType>(defaultArticleState);
 	const rootRef = useRef<HTMLDivElement | null>(null);
 
-	useOutsideClickClose({
-		isOpen: isOpen,
-		rootRef,
-		onChange: () => setIsOpen(false),
-	});
-
-	const handleArrowClick = () => {
+	const handleArrowClick = (e: MouseEvent<HTMLDivElement>) => {
+		e.stopPropagation();
 		setIsOpen(!isOpen);
 	};
 
@@ -52,23 +47,26 @@ export const ArticleParamsForm = ({
 
 	const onSubmitInfo = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		// event.stopPropagation();
 	};
 
-	// const handleReset = (event: FormEvent<HTMLFormElement>) => {
-	// 	event.preventDefault();
-	// 	setEdition(defaultArticleState);
-	// 	// onReset();
-	// };
 	const handleReset = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setStatusPage(defaultArticleState);
-		// onReset();
 	};
 
+	useOutsideClickClose({
+		isOpen: isOpen,
+		rootRef,
+		onChange: () => setIsOpen(false),
+		onClose: () => setIsOpen(false),
+	});
+
 	return (
-		<div ref={rootRef}>
+		<div>
 			<ArrowButton onClick={handleArrowClick} isOpen={isOpen} />
 			<aside
+				ref={rootRef}
 				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
 				<form
 					className={styles.form}
@@ -81,16 +79,21 @@ export const ArticleParamsForm = ({
 						title='Шрифт'
 						options={fontFamilyOptions}
 						selected={edition.fontFamilyOption}
-						onChange={(option) =>
-							updateArticleState('fontFamilyOption', option)
-						}
+						onChange={(option) => {
+							updateArticleState('fontFamilyOption', option);
+						}}
+						// onClose={() => {
+						// 	setIsOpen(false);
+						// }}
 					/>
 					<RadioGroup
 						name='size_button'
 						title='Размер шрифта'
 						selected={edition.fontSizeOption}
 						options={fontSizeOptions}
-						onChange={(option) => updateArticleState('fontSizeOption', option)}
+						onChange={(option) => {
+							updateArticleState('fontSizeOption', option);
+						}}
 					/>
 					<Select
 						title='Цвет шрифта'
@@ -113,16 +116,19 @@ export const ArticleParamsForm = ({
 					/>
 
 					<div className={styles.bottomContainer}>
+						{/* <Button title='Сбросить' type='reset' onClick={() => handleReset} /> */}
 						<Button
 							title='Сбросить'
 							type='reset'
-							// onClick={() => setStatusPage(defaultArticleState)}
-							onClick={() => handleReset}
+							onClick={() => setEdition(defaultArticleState)}
 						/>
 						<Button
 							title='Применить'
 							type='submit'
-							onClick={() => setStatusPage(edition)}
+							onClick={() => {
+								setStatusPage(edition);
+								setIsOpen(false);
+							}}
 						/>
 					</div>
 				</form>

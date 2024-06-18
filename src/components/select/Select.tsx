@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import type { MouseEventHandler } from 'react';
+import type { MouseEvent, MouseEventHandler } from 'react';
 import clsx from 'clsx';
 import { OptionType } from 'src/constants/articleProps';
 import { Text } from 'components/text';
@@ -42,7 +42,10 @@ export const Select = (props: SelectProps) => {
 		setIsOpen(false);
 		onChange?.(option);
 	};
-	const handlePlaceHolderClick: MouseEventHandler<HTMLDivElement> = () => {
+	const handlePlaceHolderClick: MouseEventHandler<HTMLDivElement> = (
+		e: MouseEvent
+	) => {
+		e.stopPropagation();
 		setIsOpen((isOpen) => !isOpen);
 	};
 
@@ -93,7 +96,9 @@ export const Select = (props: SelectProps) => {
 								<Option
 									key={option.value}
 									option={option}
-									onClick={() => handleOptionClick(option)}
+									onClick={() => {
+										handleOptionClick(option);
+									}}
 								/>
 							))}
 					</ul>
