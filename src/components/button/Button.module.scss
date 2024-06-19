@@ -8,12 +8,18 @@
 	text-align: center;
 	border: 1px solid #000000;
 	cursor: pointer;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.button:hover {
+	background: var(--gold, #ffedab);
 }
 
 .button:active {
 	background: var(--gold, #ffc802);
 }
 
-.button:hover {
-	background: var(--gold, #ffc802);
+.button:first-child:hover {
+	color: white;
+	background: #000000;
 }
