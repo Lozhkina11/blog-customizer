@@ -82,9 +82,6 @@ export const ArticleParamsForm = ({
 						onChange={(option) => {
 							updateArticleState('fontFamilyOption', option);
 						}}
-						// onClose={() => {
-						// 	setIsOpen(false);
-						// }}
 					/>
 					<RadioGroup
 						name='size_button'
@@ -114,9 +111,7 @@ export const ArticleParamsForm = ({
 						options={contentWidthArr}
 						onChange={(option) => updateArticleState('contentWidth', option)}
 					/>
-
 					<div className={styles.bottomContainer}>
-						{/* <Button title='Сбросить' type='reset' onClick={() => handleReset} /> */}
 						<Button
 							title='Сбросить'
 							type='reset'
