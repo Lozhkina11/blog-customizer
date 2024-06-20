@@ -56,10 +56,10 @@ export const ArticleParamsForm = ({
 	};
 
 	useOutsideClickClose({
-		isOpen: isOpen,
+		isOpen,
+		onClose: () => setIsOpen(false),
 		rootRef,
 		onChange: () => setIsOpen(false),
-		onClose: () => setIsOpen(false),
 	});
 
 	return (
