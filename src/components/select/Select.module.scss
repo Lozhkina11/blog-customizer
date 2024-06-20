@@ -1,11 +1,18 @@
 .selectWrapper {
 	position: relative;
+	margin-bottom: 50px;
 }
 
 .container {
 	display: flex;
 	flex-direction: column;
 	row-gap: 4px;
+	margin-top: 50px;
+}
+
+.container:nth-child(7n) {
+	margin-top: 0;
+	margin-bottom: 207px;
 }
 
 .arrow {
@@ -13,7 +20,7 @@
 	top: 50%;
 	right: 6px;
 	margin-top: -12px;
-	transition: transform 0.2s ease-in-out, margin-top 0.2s ease-in-out;
+	transition: transform 0.2s ease-in-out, 0.2s ease-in-out;
 }
 
 .placeholder {
@@ -44,7 +51,7 @@
 
 .selectWrapper:not([data-is-active='true'])
 	.placeholder:not([data-status='invalid']):hover {
-	outline: 3px solid #000000;
+	outline: 1px solid var(--gold, #ffcb0e);
 }
 
 .select {
@@ -78,7 +85,11 @@
 }
 
 .option:hover {
-	background: var(--grey, #c4c4c4);
+	background: var(--grey, #eeeeee);
+}
+
+.option:active {
+	background: var(--grey, #d7d7d7);
 }
 
 @mixin option-color-before {
